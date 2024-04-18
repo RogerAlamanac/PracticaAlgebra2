@@ -1,6 +1,8 @@
 //Variables
 PImage lechuga, donut;
 float pxLechuga, pyLechuga;
+int pxDonut=10;
+int pyDonut=20;
 float angleX=30.0;
 float angleY=60.0;
 //Setup
@@ -15,14 +17,15 @@ void setup(){
 //Draw
 void draw(){
   background(255);
-  GenerarPersonatges();
+  Lechuga();
+  Donut();
   Persona();
   mover();
   
 
 }
 //Functions
-void GenerarPersonatges(){
+void Lechuga(){
 image(lechuga,pxLechuga,pyLechuga);
   lechuga.resize(50,50);
   fill(255);
@@ -33,12 +36,36 @@ image(lechuga,pxLechuga,pyLechuga);
   ellipse(pxLechuga+15, pyLechuga+20, 2, 2);
   fill(255);
   arc(pxLechuga+25, pyLechuga+30, 15, 15, 0, radians(180), OPEN);
-  image(donut, 10, 20);
+}
+void Donut(){
+  image(donut, pxDonut, pyDonut);
   donut.resize(50,50);
+   fill(255);
+  ellipse(pxDonut+35, pyDonut+20, 10, 10);
+  ellipse(pxDonut+15, pyDonut+20, 10, 10);
+  fill(0);
+  ellipse(pxDonut+35, pyDonut+20, 2, 2);
+  ellipse(pxDonut+15, pyDonut+20, 2, 2);
 }
 void mover(){
   if(mousePressed){
   pxLechuga=mouseX;
   pyLechuga=mouseY;
   }
+  
+  if(keyPressed&&(key==CODED)){
+    if(keyCode==LEFT){
+      pxDonut-=2;
+    }
+    if (keyCode==RIGHT){
+      pxDonut+=2;
+    }
+    if(keyCode==UP){
+      pyDonut-=2;
+    }
+    if (keyCode == DOWN){
+      pyDonut+=2;
+    }
+  }
+ 
 }
