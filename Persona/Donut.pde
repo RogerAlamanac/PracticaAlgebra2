@@ -16,16 +16,20 @@ void Donut(){
 void moverDonut() {
   if (keyPressed||(keyPressed&&(key==CODED))) {
     if (keyCode==LEFT) {
-      pxDonut-=20;
+      if(pxDonut>0)//Coliders amb el borde del mapa
+      pxDonut-=3;
     }
     if (keyCode==RIGHT) {
-      pxDonut+=20;
+      if(pxDonut<width-50)
+      pxDonut+=3;
     }
     if (keyCode==UP) {
-      pyDonut-=20;
+      if(pyDonut>0)
+      pyDonut-=3;
     }
     if (keyCode == DOWN) {
-      pyDonut+=20;
+      if(pyDonut<height-50)
+      pyDonut+=3;
     }
   }
 }

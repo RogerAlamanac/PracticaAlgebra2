@@ -1,8 +1,8 @@
-void Persona(){
 float bodySizex=70;
 float bodySizey=70;
 float xBody = 80;
-float yBody = (height/2) + 40;
+float yBody = 390;
+void Persona(){
 fill(0,255,255);
   ellipse(80, (height/2)-20, 50, 50);//Cap
   fill(255);

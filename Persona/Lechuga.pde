@@ -6,28 +6,33 @@ void Lechuga() {
   image(lechuga, pxLechuga, pyLechuga);
   lechuga.resize(50, 50);
   fill(255);
-  ellipse(pxLechuga+35, pyLechuga+20, 10, 10);
+  ellipse(pxLechuga+35, pyLechuga+20, 10, 10); //Ulls cornea
   ellipse(pxLechuga+15, pyLechuga+20, 10, 10);
   fill(0);
-  ellipse(pxLechuga+35, pyLechuga+20, 2, 2);
+  ellipse(pxLechuga+35, pyLechuga+20, 2, 2); //Ulls pupila
   ellipse(pxLechuga+15, pyLechuga+20, 2, 2);
   fill(255);
-  arc(pxLechuga+25, pyLechuga+30, 15, 15, 0, radians(180), OPEN);
+  arc(pxLechuga+25, pyLechuga+30, 15, 15, 0, radians(180), OPEN); //Boca
 }
 
 void MoverLechuga() {
   if (keyPressed) {
     if (key =='a') {
-      pxLechuga-=20;
+      if(pxLechuga>0)
+      pxLechuga-=3;
+      
     }
     if (key =='d') {
-      pxLechuga+=20;
+      if(pxLechuga<width-50)
+      pxLechuga+=3;
     }
     if (key =='w') {
-      pyLechuga-=20;
+      if(pyLechuga>0)
+      pyLechuga-=3;
     }
     if (key =='s') {
-      pyLechuga+=20;
+      if(pyLechuga<height-50)
+      pyLechuga+=3;
     }
   }
 }
