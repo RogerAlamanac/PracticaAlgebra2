@@ -14,7 +14,7 @@ void Donut(){
 }
 
 void moverDonut() {
-  if (keyPressed&&(key==CODED)) {
+  if (keyPressed||(keyPressed&&(key==CODED))) {
     if (keyCode==LEFT) {
       pxDonut-=20;
     }

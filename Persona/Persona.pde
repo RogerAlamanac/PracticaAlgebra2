@@ -1,6 +1,8 @@
 void Persona(){
 float bodySizex=70;
 float bodySizey=70;
+float xBody = 80;
+float yBody = (height/2) + 40;
 fill(0,255,255);
   ellipse(80, (height/2)-20, 50, 50);//Cap
   fill(255);
@@ -12,5 +14,5 @@ fill(0,255,255);
   fill(255);
   arc(80, (height/2)-10, 15, 15, 0, radians(180), OPEN);//Boca
   fill(0,255,255);
-  ellipse(80, (height/2) + 40, bodySizex, bodySizey);//Cos
+  ellipse(xBody, yBody , bodySizex, bodySizey);//Cos
 }
