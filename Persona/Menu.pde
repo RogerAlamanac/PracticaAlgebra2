@@ -16,9 +16,9 @@ void drawMenu() {
   fill(255);
   textSize(32);
 
-  fill(255);
+  fill(0);
   textSize(32);
-  text("Press 'PLAY' to start! ", width/2, height/2 + 250);
+  text("Press 'PLAY' to start! ", width/2 + 70, height/2 + 170);
 
 
   fill(199, 228, 248);

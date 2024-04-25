@@ -1,6 +1,6 @@
 //Variables
 PImage donut;
-float pxDonut, pyDonut;
+int pxDonut, pyDonut;
 //Funciones
 void Donut(){
   image(donut, pxDonut, pyDonut);
@@ -18,18 +18,22 @@ void moverDonut() {
     if (keyCode==LEFT) {
       if(pxDonut>0)//Coliders amb el borde del mapa
       pxDonut-=3;
+      distanciaRec+=3;
     }
     if (keyCode==RIGHT) {
       if(pxDonut<width-50)
       pxDonut+=3;
+      distanciaRec+=3;
     }
     if (keyCode==UP) {
       if(pyDonut>0)
       pyDonut-=3;
+      distanciaRec+=3;
     }
     if (keyCode == DOWN) {
       if(pyDonut<height-50)
       pyDonut+=3;
+      distanciaRec+=3;
     }
   }
 }
