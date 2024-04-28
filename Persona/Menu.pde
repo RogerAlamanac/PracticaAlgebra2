@@ -1,4 +1,4 @@
-PImage fondo;
+PImage fondo, fondoLUT;
 PImage nevera;
 boolean menu = true;
 float pxNevera, pyNevera;
@@ -12,7 +12,7 @@ void drawMenu() {
   //Foto Menu
   image (fondo, width, height, 900, 700);
   image(nevera, pxNevera, pyNevera, 600, 700);
-  // Texto que muestra la cantidad actual de enemigos
+
   fill(255);
   textSize(32);
 
@@ -39,4 +39,21 @@ void mousePressed() {
 void startGame() {
   menu = false;
   menu = false; // Cambiar al juego
+}
+
+void FondoLUT(){
+  image(fondoLUT, pxLechuga, pyLechuga);//Generar la imatge de la lechuga quan perd la partida (s'aplica el LUT);
+  lechugaLuma.resize(50, 50);
+  CaraLechuga();
+  for (int i=0; i<fondoLUT.width; i++) {// Recorremos la X(columnas)
+    for (int j=0; j<fondoLUT.width; j++) { //Recorremos las Y (filas)
+
+      color colorPixelLUT = fondoLUT.get(i, j);
+      // 2- Cambiamos color
+      float luma = 0.299*red(colorPixelLUT) + 0.587*green(colorPixelLUT) + 0.114*blue(colorPixelLUT);
+      colorPixelLUT = color((255-luma),255-(int)random(255),255-(int)random(255));
+
+      fondoLUT.set(i, j, colorPixelLUT);
+    }
+  }
 }
