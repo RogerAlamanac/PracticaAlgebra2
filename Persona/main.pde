@@ -46,18 +46,20 @@ void setup() {
   distanciaRec = 0;
   lifes = 3;
   numColisions=0;
+  mosca = loadImage("Mosca.png");
+  posicion = new PVector(-mosca.width, random(height - mosca.height));
   gameOver = false;
   lifesLechuga = new PImage[lifes];
   lifesDonut = new PImage[lifes];
+  // Cargar imatges de vida de la lechuga
   for (int i = 0; i < lifesLechuga.length; i++) {
     lifesLechuga[i] = loadImage( "Lechuga.png");
   }
 
-  // Cargar las imágenes de las vidas del donut
+  // Cargar imatges de vida del donut
   for (int i = 0; i < lifesDonut.length; i++) {
     lifesDonut[i] = loadImage("Donut.png");
   }
-  
 }
 //Draw
 void draw() {
@@ -120,8 +122,8 @@ void Info() {//Informació que surt en pantalla (vides, torn...)
 }
 
 void Init() {
-  Timer();
   Info();
+  Timer();
   Lechuga();
   Donut();
   Persona();

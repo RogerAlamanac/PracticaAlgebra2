@@ -37,6 +37,7 @@ void ColisionPvP() { //Colisió de Lechuga i Donut
     pxLechuga = width/4;
     pyLechuga = height/2;
     lifes--;
+    activarMosca();
     distanciaRec = 0;
     tornLechuga=false;
     tornDonut = true;
@@ -44,21 +45,22 @@ void ColisionPvP() { //Colisió de Lechuga i Donut
       PImage[] newLifesDonut = new PImage[lifesDonut.length - 1];
       arrayCopy(lifesDonut, 0, newLifesDonut, 0, newLifesDonut.length);
       lifesDonut = newLifesDonut;
-    if (lifes < 1) {
-      modeLechuga=true;
-      modeDonut = false;
-      tornLechuga = true;
-      tornDonut = false;
-      lifes=3;
-      distanciaRec = 0;
-      pxDonut = width/4;
-      pyDonut = height/2;
-      pxLechuga = width/2+300;
-      pyLechuga = height/2;
-      GenLifes();
+      if (lifes < 1) {
+        modeLechuga=true;
+        modeDonut = false;
+        tornLechuga = true;
+        tornDonut = false;
+        lifes=3;
+        distanciaRec = 0;
+        pxDonut = width/4;
+        pyDonut = height/2;
+        pxLechuga = width/2+300;
+        pyLechuga = height/2;
+        GenLifes();
+        
+      }
     }
   }
-}
 }
 void ColisionPerson() { //Colisió amb la persona
   if (modeLechuga) { //La lechuga només colisiona (aprima) la persona quan ataca
@@ -69,15 +71,15 @@ void ColisionPerson() { //Colisió amb la persona
       pxDonut = width/2+300;
       pyDonut = height/2;
       tornLechuga = false;//Resetear els torns
-      tornDonut = true; 
+      tornDonut = true;
       distanciaRec = 0;
       modeLechuga=false;
       modeDonut=true;
       lifes = 3;//Resetear les vides
       GenLifes();
       numColisions--;
+      activarMosca();
     }
-    
   }
   if (modeDonut) {//El donut només colisiona (engreixa) la persona quan ataca
     if (sqrt(sq(xBody-pxDonut)+sq(yBody-pyDonut)) <= 60) {
@@ -92,13 +94,15 @@ void ColisionPerson() { //Colisió amb la persona
       modeDonut = false;
       lifes = 3;
       GenLifes();
+      activarMosca();
       distanciaRec = 0;
       numColisions++;
-  }
+    }
 
-  if (numColisions>=3) {
-    DonutWin = true;
-  } else if (numColisions <= -3) {
-    LechugaWin = true;
+    if (numColisions>=3) {
+      DonutWin = true;
+    } else if (numColisions <= -3) {
+      LechugaWin = true;
+    }
   }
-}}
+}
