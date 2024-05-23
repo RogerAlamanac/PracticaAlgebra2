@@ -80,7 +80,7 @@ class corba {
     p = new PVector[4];
     p[0] = new PVector(100, 500, 300);
     p[1] = new PVector(300, -500, 400);
-    p[2] = new PVector(400, 1000, 250);
+    p[2] = new PVector(400, 400, 250);
     p[3] = new PVector(700, 100, 100);
     // Crido al construcotr de la corba
     la_primera_corba = new corba(p, 100);
@@ -150,3 +150,4 @@ class corba {
     posX = C0x + C1x * u + C2x * u2 + C3x * u3;
     posY = C0y + C1y * u + C2y * u2 + C3y * u3;
   }
+  
