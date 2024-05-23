@@ -40,7 +40,7 @@ void setup() {
   tornDonut = true; //Comença movent el donut
   modeLechuga = false;//False es mode DEFENSA
   modeDonut = true; //True es mode ATAC
-  LechugaWin = false;
+  LechugaWin = true;
   DonutWin = false;
   distanciaMax = 300;
   distanciaRec = 0;

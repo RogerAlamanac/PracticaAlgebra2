@@ -1,7 +1,7 @@
 PImage mosca; 
 PVector posicion; // Variable posició de la mosca
 float velocidad = 4; // Velocitat mosca
-boolean moscaActiva = false; 
+boolean moscaActiva = true; 
 PVector posicionMosca; // Posición de la mosca
 
 void mosca(){
