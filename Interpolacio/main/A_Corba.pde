@@ -3,9 +3,6 @@ float C0x, C1x, C2x, C3x;
 float C0y, C1y, C2y, C3y;
 float u;
 float posX, posY;
-corba la_primera_corba;
-corba la_segona_corba;
-corba la_tercera_corba;
 //Fem un array de corbes perquè vagi el líder
 ArrayList<corba> corbes = new ArrayList<corba>();
 int currentCorbaIndex = 0; //Per saber en quina corba estem
@@ -53,7 +50,9 @@ class corba {
     strokeWeight(3);
     stroke(255);
     for (int i = 0; i<4; i++) {
-      ellipse(punts_ctrl[i].x, punts_ctrl[i].y, 25, 25);
+      if(i==0 || i==3){
+        ellipse(punts_ctrl[i].x, punts_ctrl[i].y, 25, 25);
+      }
     }
     //Seguim pintant punts corba --> son tants com decidim
     stroke(255, 255, 0);
