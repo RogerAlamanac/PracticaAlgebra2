@@ -1,5 +1,5 @@
 void setup() {
-  size(800, 600, P3D);
+  fullScreen(P3D);  
   //CORBA
   // Crear múltiples corbes
   PVector p1[] = {new PVector(100, 500, 0), new PVector(200, 100, 0), new PVector(400, 300, 0), new PVector(600, 100, 0)}; //Cada vector es un punt de la corba
@@ -20,18 +20,25 @@ Lider();
   u = 0; // Inici curva
   frameRate(60); // Fotogrames
   
+ 
+
+  
   //Inicialitzo el desti
-  desti = new PVector(width / 2, 100.0);
+  desti = new PVector(width - 20, 20);
   // Ini. voxel
   //Fiquem vector unitari apuntant cap amunt en vertical
   //Per tant les seves coordenades son (0,-1)
   //primer_voxel = new voxel(new PVector (0, -0.5), new PVector (width/2, height/2), 100.0, 150.0, color(200));
   // Inicialitzo les particules
   // Constructor = PVector p, PVector v, float m, float tam, float constant_desti, float constant_lider, color c
-  boid1 = new Particula(false, new PVector(width/4.0, height),
-    new PVector(0.0, 0.0), 1.0, 30.0, 0.3, 0.2, 0.5, color(255, 0, 0));  //K desti = 0.2, K lider = 0.4, K friccio = 0.02
-  boid2 = new Particula(false, new PVector(3.0*width/4.0, height),
-    new PVector(0.0, 0.0), 1.0, 30.0, 0.8, 0.1, 0.2, color(0, 255, 0));  //K desti = 0.8, K lider = 0.1, K friccio = 0.02
+  boid1 = new ArrayList<Particula>();
+  for (int i = 0; i < 20; i++) {
+    boid1.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.01, color(255, 0, 0)));
+  }  //K desti = 0.2, K lider = 0.4, K friccio = 0.02
+  boid2 = new ArrayList<Particula>();
+  for (int i = 0; i < 20; i++) {
+    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.2, 0.01, color(0, 255, 0)));
+  }  //K desti = 0.8, K lider = 0.1, K friccio = 0.02
   lider = new Particula(true, new PVector(width / 2.0, height - 30),
       new PVector(0.0, 0.0), 1.0, 45.0, 0.9, 0, 0.6, color(0, 0, 255));  //K desti = 0.9, K lider = 0, K friccio = 0.02*/
 }
@@ -42,6 +49,13 @@ void draw() {
   // Actualiza posició elipse
   corba currentCorba = corbes.get(currentCorbaIndex);
   interpolate(u, currentCorba);
+  
+  //desti
+  pushMatrix();
+  translate(desti.x, desti.y, 0);
+  fill(255, 255, 0);
+  box(20);
+  popMatrix();
 
   fill(0, 0, 255);
   translate(lider.posicio_particula.x, lider.posicio_particula.y, 0);
@@ -75,10 +89,13 @@ void draw() {
     corbes.get(i).Calcular_coefs();
   }
   
-  boid1.calcula_particula();
-  boid2.calcula_particula();
+  for (Particula p : boid1) {
+    p.calcula_particula();
+    p.pinta_particula();
+  }
 
-  // Pintar
-  boid1.pinta_particula();
-  boid2.pinta_particula();
+  for (Particula p : boid2) {
+    p.calcula_particula();
+    p.pinta_particula();
+  }
 }

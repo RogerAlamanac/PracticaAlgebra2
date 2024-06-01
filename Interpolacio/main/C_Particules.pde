@@ -1,7 +1,7 @@
 float increment_temps = 0.4;
 PVector desti;
-Particula boid1;
-Particula boid2;
+ArrayList<Particula> boid1;
+ArrayList<Particula> boid2;
 Particula lider;
 
 class Particula {
