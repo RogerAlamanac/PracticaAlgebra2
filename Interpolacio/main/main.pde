@@ -33,18 +33,19 @@ void setup() {
   // Constructor = PVector p, PVector v, float m, float tam, float constant_desti, float constant_lider, color c
   boid1 = new ArrayList<Particula>();
   for (int i = 0; i < 20; i++) {
-    boid1.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.01, color(255, 0, 0)));
+    boid1.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.01, 3.0, color(255, 0, 0)));
   }  //K desti = 0.2, K lider = 0.4, K friccio = 0.02
   boid2 = new ArrayList<Particula>();
   for (int i = 0; i < 20; i++) {
-    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.2, 0.01, color(0, 255, 0)));
+    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.2, 0.01, 1.0,  color(0, 255, 0)));
   }  //K desti = 0.8, K lider = 0.1, K friccio = 0.02
   lider = new Particula(true, new PVector(width / 2.0, height - 30),
-    new PVector(0.0, 0.0), 1.0, 45.0, 0.9, 0, 0.6, color(0, 0, 255));  //K desti = 0.9, K lider = 0, K friccio = 0.02*/
+    new PVector(0.0, 0.0), 1.0, 45.0, 0.9, 0, 0.6, 0.1, color(0, 0, 255));  //K desti = 0.9, K lider = 0, K friccio = 0.02*/
 }
 
 void draw() {
   background(0);
+  canviCamera();
   //BOLA
   // Actualiza posició elipse
   corba currentCorba = corbes.get(currentCorbaIndex);
