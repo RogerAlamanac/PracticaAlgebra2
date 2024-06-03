@@ -42,7 +42,7 @@ void interpolate(float u, corba c) {
   float u2 = u * u;
   float u3 = u * u * u;
 
-corba currentCorba = corbes.get(currentCorbaIndex);
+//corba currentCorba = corbes.get(currentCorbaIndex);
 
   lider.posicio_particula.x = c.coefs[0].x + c.coefs[1].x * u + c.coefs[2].x * u2 + c.coefs[3].x * u3;
   lider.posicio_particula.y = c.coefs[0].y + c.coefs[1].y * u + c.coefs[2].y * u2 + c.coefs[3].y * u3;
