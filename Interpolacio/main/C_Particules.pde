@@ -80,7 +80,7 @@ class Particula {
     // Anem a calcular els valors Xmin, Ymin, Xmax, Ymax del voxel
     //ULL! Aixo esta esta fatal pq es podria precalcular i fer nomes 1 cop
     // Perque aquests valors no canvien
-    /*   PVector xymax_voxel = new PVector(0,0);
+       PVector xymax_voxel = new PVector(0,0);
      PVector xymin_voxel = new PVector(0,0);
      xymin_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
      xymin_voxel.y = primer_voxel.posicio_voxel.x-0.7*primer_voxel.alt_voxel;
@@ -92,7 +92,7 @@ class Particula {
      acumulador_forsa.x += primer_voxel.forsa_dins_voxel.x;
      acumulador_forsa.y += primer_voxel.forsa_dins_voxel.y;
      
-     }*/
+     }
     // Força de friccio
     acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
     acumulador_forsa.y += -1.0 * constant_friccio * velocitat_particula.y;

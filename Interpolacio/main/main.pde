@@ -20,15 +20,12 @@ void setup() {
   u = 0; // Inici curva
   frameRate(60); // Fotogrames
 
-
-
-
   //Inicialitzo el desti
-  desti = new PVector(width - 20, 20);
+  desti = new PVector(width -100, 800);
   // Ini. voxel
-  //Fiquem vector unitari apuntant cap amunt en vertical
+    //Fiquem vector unitari apuntant cap amunt en vertical
   //Per tant les seves coordenades son (0,-1)
-  //primer_voxel = new voxel(new PVector (0, -0.5), new PVector (width/2, height/2), 100.0, 150.0, color(200));
+  primer_voxel = new voxel(new PVector (100, -100), new PVector (width/2, height/2), 100.0, 150.0, color(200));
   // Inicialitzo les particules
   // Constructor = PVector p, PVector v, float m, float tam, float constant_desti, float constant_lider, color c
   boid1 = new ArrayList<Particula>();
@@ -37,7 +34,7 @@ void setup() {
   }  //K desti = 0.2, K lider = 0.4, K friccio = 0.02
   boid2 = new ArrayList<Particula>();
   for (int i = 0; i < 20; i++) {
-    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.2, 0.01, 1.0,  color(0, 255, 0)));
+    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.2, 0.01, 1.0, color(0, 255, 0)));
   }  //K desti = 0.8, K lider = 0.1, K friccio = 0.02
   lider = new Particula(true, new PVector(width / 2.0, height - 30),
     new PVector(0.0, 0.0), 1.0, 45.0, 0.9, 0, 0.6, 0.1, color(0, 0, 255));  //K desti = 0.9, K lider = 0, K friccio = 0.02*/
@@ -51,6 +48,9 @@ void draw() {
   corba currentCorba = corbes.get(currentCorbaIndex);
   interpolate(u, currentCorba);
 
+  //pinta voxels
+  primer_voxel.pintar_voxel();
+
   //desti
   pushMatrix();
   translate(desti.x, desti.y, 0);
@@ -62,7 +62,7 @@ void draw() {
   translate(lider.posicio_particula.x, lider.posicio_particula.y, 0);
   noStroke();
   sphere(50);
- // ellipse(lider.posicio_particula.x, lider.posicio_particula.y, 50, 50);
+  // ellipse(lider.posicio_particula.x, lider.posicio_particula.y, 50, 50);
 
   // Incrementa u
   u += 0.005;
