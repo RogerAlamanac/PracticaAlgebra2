@@ -7,6 +7,7 @@ float posX, posY;
 ArrayList<corba> corbes = new ArrayList<corba>();
 int currentCorbaIndex = 0; //Per saber en quina corba estem
 
+
 //CLASSE CORBA
 class corba {
   PVector[] punts_ctrl; //Per on passa
@@ -50,7 +51,7 @@ class corba {
     strokeWeight(3);
     stroke(255);
     for (int i = 0; i<4; i++) {
-      if(i==0 || i==3){
+      if (i==0 || i==3) {
         ellipse(punts_ctrl[i].x, punts_ctrl[i].y, 25, 25);
       }
     }

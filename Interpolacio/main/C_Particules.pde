@@ -114,7 +114,6 @@ class Particula {
 
   void pinta_particula() {
     fill(color_particula);
-    ellipse(posicio_particula.x, posicio_particula.y,
-      tamany_particula, tamany_particula);
+    ellipse(posicio_particula.x, posicio_particula.y, tamany_particula, tamany_particula);
   }
 }
