@@ -1,4 +1,7 @@
 PVector[] p1, p2, p3, p4; //Les diferents corbes
+int numCubs = 4; // Número 'obstacles
+PVector[] posicions = new PVector[numCubs]; // posició obstacles
+float cubSize = 100; // Mida obstacles
 
 void setup() {
   size(1900, 1000, P3D);
@@ -43,7 +46,13 @@ void setup() {
   // Ini. voxel
   primer_voxel = new voxel(new PVector (100, -100), new PVector (width/2, height/2), 100.0, 100.0, color(200));
   
-
+  for (int i = 0; i < numCubs; i++) {
+    // Generar posicions aleatories per cada obstacle
+    float x = random(cubSize, width - cubSize);
+    float y = random(cubSize, height - cubSize);
+    float z = random(-200, 200); 
+    posicions[i] = new PVector(x, y, z);
+  }
 }
 
 void draw() {
@@ -79,7 +88,7 @@ void draw() {
    ellipse(lider.posicio_particula.x, lider.posicio_particula.y, 50, 50);*/
 
   // Incrementa u
-  u += 0.005;
+  u += 0.003;
 
   if (u > 1.0) {
     u = 0; // Reiniciamos u a 0 al finalizar cada curva
@@ -112,6 +121,17 @@ void draw() {
      //checkCollision(p, lider);
   }
   
+  //obstacles
+  fill(255, 165, 0);//Pintem els obstacles
+  stroke(255);
+ strokeWeight(5);
+  for (int i = 0; i < numCubs; i++) {
+    PVector pos = posicions[i];
+    pushMatrix(); 
+    translate(pos.x, pos.y, pos.z); // Moure a la posició del cub
+    box(cubSize); // Dibuixar el cub
+    popMatrix(); 
+  }
     // Detectar colisiones con voxel
   //Colisions();
   
