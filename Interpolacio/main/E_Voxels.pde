@@ -25,9 +25,9 @@ class voxel {
   }
 
   void pintar_voxel() {
-    noFill();
     stroke(color_voxel);
     rectMode (CENTER);
-    rect(posicio_voxel.x, posicio_voxel.y, ample_voxel, alt_voxel);
+    box(ample_voxel);
+    box(posicio_voxel.x, posicio_voxel.y, posicio_voxel.z);
   }
 }

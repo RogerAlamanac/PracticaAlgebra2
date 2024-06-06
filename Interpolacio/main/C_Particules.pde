@@ -41,8 +41,8 @@ class Particula {
     // Solver Euler
     // 0) Acumular les forces
     // Força cap al desti
-    vector_per_usar.x = desti.x - posicio_particula.x;
-    vector_per_usar.y = desti.y - posicio_particula.y;
+    vector_per_usar.x = lider.posicio_particula.x - posicio_particula.x;
+    vector_per_usar.y = lider.posicio_particula.y - posicio_particula.y;
     // Calcular modul
     float modul = sqrt(vector_per_usar.x * vector_per_usar.x + vector_per_usar.y * vector_per_usar.y);
     if(modul != 0){
@@ -79,7 +79,7 @@ class Particula {
     // Anem a calcular els valors Xmin, Ymin, Xmax, Ymax del voxel
     //ULL! Aixo esta esta fatal pq es podria precalcular i fer nomes 1 cop
     // Perque aquests valors no canvien
- /*   PVector xymax_voxel = new PVector(0,0);
+    PVector xymax_voxel = new PVector(0,0);
     PVector xymin_voxel = new PVector(0,0);
     xymin_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
     xymin_voxel.y = primer_voxel.posicio_voxel.x-0.7*primer_voxel.alt_voxel;
@@ -91,7 +91,7 @@ class Particula {
       acumulador_forsa.x += primer_voxel.forsa_dins_voxel.x;
     acumulador_forsa.y += primer_voxel.forsa_dins_voxel.y;
       
-    }*/
+    }
     // Força de friccio
     acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
     acumulador_forsa.y += -1.0 * constant_friccio * velocitat_particula.y;
@@ -113,7 +113,11 @@ class Particula {
   }
 
   void pinta_particula() {
-    fill(color_particula);
-    ellipse(posicio_particula.x, posicio_particula.y, tamany_particula, tamany_particula);
+    pushMatrix();
+    stroke(0,255,0);
+    translate(posicio_particula.x, posicio_particula.y,posicio_particula.z);
+    sphere(tamany_particula);
+    popMatrix();
+   
   }
 }
