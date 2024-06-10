@@ -112,8 +112,8 @@ void draw(){
   //Pintar els NPC
  if(colisioPNJ1==true&&colisioPNJ2==true){ 
   for(int counter=0;counter<amounts_enemies;counter++){ //Creem un bucle perquè es repeteixi per a cada enemic
-  
   movimentEnemics();
+  velocitat();
   }
  }
   

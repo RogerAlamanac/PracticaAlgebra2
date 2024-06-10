@@ -22,6 +22,7 @@
  int radius_pc;
  int radius_PNJ2;
  int vidaTotal = 3; // Vida total del jugador
+ 
 int vidaActual = vidaTotal; // Vida actual del jugador
 
 

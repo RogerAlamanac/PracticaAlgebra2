@@ -16,23 +16,30 @@ float[] vectorEnemies; //vector dels enemics cap al PNJ2
 float magnitude;// vector size = distance between circles
 boolean collided = false; //No colision by defect
 float velocitat = 0.2; // Velocitat del Enemic
-float maxVelocitat = 5.0; // Velocitat màxima del PNJ
+float maxVelocitat = 3.0; // Velocitat màxima del PNJ
 float direccioX=atan2(1,1);//Direccions enemics amb moviment random
 float direccioY=atan2(-1,-1);
 float direccioEnemics;//Direccio enemics que segueixen al PNJ2;
 int tempsO;
-
+float distanciaPJ; //Distancia enemics amb PJ
 int score = 0;
+boolean accelerating = true; // Estat de l'acceleració
+
 //FUNCIONS
 //Funció velocitat
-void velocitat()
-{
-    velocitat += 0.1; // Augmenta la velocitat fins al valor max
-    if (velocitat >= maxVelocitat) 
-    {
-      velocitat = 0; // Reiniciar la velocitat 
+void velocitat() {
+    if (accelerating) {
+        velocitat += 0.01; // Augmenta la velocitat fins al valor max
+        if (velocitat >= maxVelocitat) {
+            accelerating = false; // Canvia l'estat a desaccelerant
+        }
+    } else {
+        velocitat -= 0.01; // Redueix la velocitat
+        if (velocitat <= 0) {
+            accelerating = true; // Canvia l'estat a accelerant
+        }
     }
- }
+}
 
 //Moviment enemics
 void movimentEnemics(){
@@ -40,12 +47,12 @@ void movimentEnemics(){
 
  for(int counter=0;counter<amounts_enemies/2;counter++){
    radius_enemies[counter]=30.0;
-    enemy_x[counter] += velocitat*direccioX;  
+    enemy_x[counter] += velocitat*cos(direccioX);  
     if((enemy_x[counter]>width-radius_enemies[counter])||(enemy_x[counter]<radius_enemies[counter])){
       
       direccioX=-direccioX;
     }
-    enemy_y[counter] += velocitat*direccioY;
+    enemy_y[counter] += velocitat*sin(direccioY);
     if((enemy_y[counter]>height-radius_enemies[counter])||(enemy_y[counter]<radius_enemies[counter])){
      
      direccioY=-direccioY; 
@@ -65,6 +72,7 @@ void movimentEnemics(){
     direccioY=sin(direccioEnemics)*velocitat;
     enemy_x[counter]+=direccioX;
     enemy_y[counter]+=direccioY;
+    
     fill(255,0,0);
     ellipse(enemy_x[counter],enemy_y[counter],radius_enemies[counter],radius_enemies[counter]);
  }
@@ -117,6 +125,10 @@ void movimentEnemics(){
       velocitat*=-1;
     }
     //else println("Quadrant PC ", pc_quadrant, " Quadrant npc ", enemy_quadrant[counter]);
+    
+    if(magnitude < radius_enemies[counter] + radius_pc*2){
+     direccioEnemics = -direccioEnemics;
+    }
   }
 }
 

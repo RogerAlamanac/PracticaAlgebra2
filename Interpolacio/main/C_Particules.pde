@@ -1,4 +1,4 @@
-float increment_temps = 0.4;
+float increment_temps = 0.7;
 PVector desti;
 ArrayList<Particula> boid1;
 ArrayList<Particula> boid2;
