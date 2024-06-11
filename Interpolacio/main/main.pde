@@ -44,7 +44,7 @@ void setup() {
   lider = new Particula(true, new PVector(width / 2.0, height - 30),
     new PVector(0.03, 0.03), 1.0, 45.0, 0.9, 0, 0.6, color(0, 0, 255));  //K desti = 0.9, K lider = 0, K friccio = 0.02*/
   // Ini. voxel
-  primer_voxel = new voxel(new PVector (100, -100), new PVector (width/2, height/2), 100.0, 100.0, color(200));
+  primer_voxel = new Voxel(new PVector (100, -100), new PVector (width/2, height/2), 100.0, 100.0, color(200));
   
   for (int i = 0; i < numCubs; i++) {
     // Generar posicions aleatories per cada obstacle
@@ -52,11 +52,15 @@ void setup() {
     float y = random(cubSize, height - cubSize);
     float z = random(-200, 200); 
     posicions[i] = new PVector(x, y, z);
+    
+    
   }
 }
 
 void draw() {
   background(0);
+  lights();
+  
   //Configuració de la càmara
   setupCamera();
    if (isIsometric) { //Per poder posar la vista isometrica
@@ -133,7 +137,7 @@ void draw() {
     popMatrix(); 
   }
     // Detectar colisiones con voxel
-  //Colisions();
+  Colisions();
   
 
   //pinta voxels

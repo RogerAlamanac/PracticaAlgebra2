@@ -1,12 +1,3 @@
-class Lider {
-  PVector position;
-  float radius;
-  
-  Lider(float x, float y, float z) {
-    position = new PVector(x, y, z);
-    radius = 10; // ejemplo de radio
-  }
-  
   void Lider() {
     PVector[] lider = new PVector[4];
     // Inicialitzar els punts del líder
@@ -46,9 +37,9 @@ class Lider {
     return coefficients;
   }
   
- boolean collidesWithVoxel(Voxel voxel) {
+/* boolean collidesWithVoxel(Voxel voxel) {
     return voxel.contains(position);
-  }
+  }*/
 // Funció de interpolació
 void interpolate(float u, corba c) {
   float u2 = u * u;

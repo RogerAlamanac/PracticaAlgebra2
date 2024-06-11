@@ -123,9 +123,9 @@ class particula {
     PVector xymax_voxel = new PVector(0,0);
     PVector xymin_voxel = new PVector(0,0);
     xymin_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
-    xymin_voxel.y = primer_voxel.posicio_voxel.x-0.7*primer_voxel.alt_voxel;
+    xymin_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
     xymax_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
-    xymax_voxel.y = primer_voxel.posicio_voxel.x-0.7*primer_voxel.alt_voxel;
+    xymax_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
     
     if((posicio_particula.x>xymin_voxel.x) && (posicio_particula.x<xymax_voxel.x) && (posicio_particula.y>xymin_voxel.y) && (posicio_particula.y<xymax_voxel.y)){
       // Som dins del voxel
