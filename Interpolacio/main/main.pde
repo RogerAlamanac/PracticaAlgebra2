@@ -6,6 +6,9 @@ float cubSize = 100; // Mida obstacles
 PShape liderBird;
 PImage textura;
 
+PShape destiBird;
+PImage texturaDesti;
+
 void setup() {
   size(1900, 1000, P3D);
 
@@ -17,6 +20,10 @@ void setup() {
   textura = loadImage("Red.jpg");
   liderBird.setTexture(textura);
   
+  destiBird = loadShape("Blue.obj");
+  texturaDesti = loadImage("Blue.jpg");
+ destiBird.setTexture(texturaDesti);
+ 
   //CORBA
   // Crear múltiples corbes
   p1 = new PVector[]{new PVector(100, 800, 100), new PVector(200, 100, 200), new PVector(400, 300, 593), new PVector(600, 100, 170)};
@@ -86,8 +93,8 @@ void draw() {
   // Destí
   pushMatrix();
   translate(desti.x, desti.y, 0);
-  fill(255, 255, 0);
-  box(20);
+  scale (20);
+  shape(destiBird); 
   popMatrix();
 
   // Dibuixar líder
