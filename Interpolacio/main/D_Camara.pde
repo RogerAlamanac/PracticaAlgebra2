@@ -1,6 +1,6 @@
 boolean isIsometric = true;
 
-// Variables per la posició i orientació de la càmara 
+// Variables per la posició i orientació de la càmara
 float camX = 0; //Coordenada X de la cam
 float camY = 0; //Coordenada Y de la cam
 float camZ = (height / 2.0) / tan(PI / 6.0); // Distancia de la càmara
@@ -15,8 +15,7 @@ void setupCamera() {
     float camTargetY = height / 2.0 + camY; //Objetiu y de la càmara
     float camTargetZ = 0; //Objectiu Z de la càmara
     perspective(fov, float(width) / float(height), camZ / 10.0, camZ * 10.0); //Per cambiar de perspectiva
-    camera(camTargetX, camTargetY, cameraZ, camTargetX, camTargetY, camTargetZ, 0, 1, 0); 
-    
+    camera(camTargetX, camTargetY, cameraZ, camTargetX, camTargetY, camTargetZ, 0, 1, 0);
   } else {
     // Cámara ortogràfica superior
     ortho(-width / 2, width / 2, -height / 2, height / 2, -10000, 10000); //Configura la vista ortogràfica
@@ -24,7 +23,7 @@ void setupCamera() {
   }
 }
 
-void keyPressed(){
+void keyPressed() {
   if (key == 'c' || key == 'C') { //al apretar la tecla C es cambia de camera
     isIsometric = !isIsometric;
   }
@@ -38,18 +37,23 @@ void keyPressed(){
   } else if (keyCode == RIGHT) { //Al premer la tecla de RIGHT, la camara es mou cap a la dreta
     camX += 10;
   }
-  
-  if(key == 'a' || key == 'A'){
-    for(Particula p : boid1){
-       p.activarFriccio = !p.activarFriccio;
+
+  if (key == 'f' || key == 'F') {
+    for (Particula p : boid1) {
+      p.activarFriccio = !p.activarFriccio;
     }
-    
-   /* for(Particula p1 : boid2){
-      p1.activarFriccio = !p1.activarFriccio;
-    }*/
-   
     lider.activarFriccio = !lider.activarFriccio;
   }
-}
 
-  
+
+  if (key == 'v' || key == 'V') {
+    for (Particula p : boid1) {
+      p.activarVent = !p.activarVent;
+    }
+    lider.activarVent = !lider.activarVent;
+  }
+
+  /* for(Particula p1 : boid2){
+   p1.activarFriccio = !p1.activarFriccio;
+   }*/
+}

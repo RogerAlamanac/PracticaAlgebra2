@@ -34,7 +34,6 @@ class Particula {
     soc_lider = l;
     constant_friccio = const_f;
     constant_vent = const_v;
-    
   }
   // Metodes
   void calcula_particula() {
@@ -84,47 +83,47 @@ class Particula {
     //ULL! Aixo esta esta fatal pq es podria precalcular i fer nomes 1 cop
     // Perque aquests valors no canvien
     PVector xymax_voxel = new PVector(0, 0);
-     PVector xymin_voxel = new PVector(0, 0);
-     
-     
-     xymin_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
-     xymin_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
-     xymax_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
-     xymax_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
-     
-     if ((posicio_particula.x>xymin_voxel.x) && (posicio_particula.x<xymax_voxel.x) && (posicio_particula.y>xymin_voxel.y) && (posicio_particula.y<xymax_voxel.y)) {
-     // Som dins del voxel
-     acumulador_forsa.x += primer_voxel.forsa_dins_voxel.x;
-     acumulador_forsa.y += primer_voxel.forsa_dins_voxel.y;
-     }
-     // Força de friccio
-     if (activarFriccio) {
+    PVector xymin_voxel = new PVector(0, 0);
+
+
+    xymin_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
+    xymin_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
+    xymax_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
+    xymax_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
+
+    if ((posicio_particula.x>xymin_voxel.x) && (posicio_particula.x<xymax_voxel.x) && (posicio_particula.y>xymin_voxel.y) && (posicio_particula.y<xymax_voxel.y)) {
+      // Som dins del voxel
+      acumulador_forsa.x += primer_voxel.forsa_dins_voxel.x;
+      acumulador_forsa.y += primer_voxel.forsa_dins_voxel.y;
+    }
+    // Força de friccio
+    if (activarFriccio) {
       acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
       acumulador_forsa.y += -1.0 * constant_friccio * velocitat_particula.y;
     }
-     
-     // Força del vent
-     if(activarVent){
+
+    // Força del vent
+    if (activarVent) {
       acumulador_forsa.x += -1.0 * constant_vent * velocitat_particula.x;
       acumulador_forsa.y += -1.0 * constant_vent * velocitat_particula.y;
-     }
-     
-     // 1) Acceleracio
-     acceleracio_particula.x = acumulador_forsa.x / massa_particula;
-     acceleracio_particula.y = acumulador_forsa.y / massa_particula;
-     // 2) Velocitat
-     velocitat_particula.x = velocitat_particula.x
-     + acceleracio_particula.x * increment_temps;
-     velocitat_particula.y = velocitat_particula.y
-     + acceleracio_particula.y * increment_temps;
-     // 3) Posicio
-     posicio_particula.x = posicio_particula.x
-     + velocitat_particula.x * increment_temps;
-     posicio_particula.y = posicio_particula.y
-     + velocitat_particula.y * increment_temps;
-     
-      // Col·lisions amb altres partícules
-      for (int i = 0; i < boid1.length; i++) {
+    }
+
+    // 1) Acceleracio
+    acceleracio_particula.x = acumulador_forsa.x / massa_particula;
+    acceleracio_particula.y = acumulador_forsa.y / massa_particula;
+    // 2) Velocitat
+    velocitat_particula.x = velocitat_particula.x
+      + acceleracio_particula.x * increment_temps;
+    velocitat_particula.y = velocitat_particula.y
+      + acceleracio_particula.y * increment_temps;
+    // 3) Posicio
+    posicio_particula.x = posicio_particula.x
+      + velocitat_particula.x * increment_temps;
+    posicio_particula.y = posicio_particula.y
+      + velocitat_particula.y * increment_temps;
+
+    // Col·lisions amb altres partícules
+    for (int i = 0; i < boid1.length; i++) {
       Particula other = boid1[i];
       if (other != this) { //Si una altre particula no es ella mateixa
         float dx = posicio_particula.x - other.posicio_particula.x; //Component x del vector de la distancia
@@ -143,7 +142,7 @@ class Particula {
           float vn = rvx * nx + rvy * ny;
 
           // Si s'esten separant/repelent, que no faci res
-         if (vn < 0) {
+          if (vn < 0) {
             // Calcula el impuls
             float j = -vn * 0.05;
             float ix = j * nx;
@@ -158,10 +157,9 @@ class Particula {
         }
       }
     }
-
   }
- 
-  
+
+
   void pinta_particula() {
     pushMatrix();
     //stroke(0, 255, 0);
@@ -169,8 +167,14 @@ class Particula {
     sphere(tamany_particula);
     popMatrix();
   }
-  void checkFriccio(){
- if(activarFriccio) println("Friccio activada");
- else println("Friccio desactivada");
-}
+  
+  void checkFriccio() {
+    if (activarFriccio) println("Friccio activada");
+    else println("Friccio desactivada");
+  }
+
+  void checkVent() {
+    if (activarVent) println("Vent activat");
+    else println("Vent desactivat");
+  }
 }

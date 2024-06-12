@@ -2,12 +2,21 @@ PVector[] p1, p2, p3, p4; //Les diferents corbes
 int numCubs = 4; // Número 'obstacles
 PVector[] posicions = new PVector[numCubs]; // posició obstacles
 float cubSize = 100; // Mida obstacles
+
+PShape liderBird;
+PImage textura;
+
 void setup() {
   size(1900, 1000, P3D);
 
   camZ = (height / 2.0) / tan(PI / 6.0); // Distancia de la càmara
   //Inicialitzo el desti
   desti = new PVector(mouseX, mouseY);
+  
+  liderBird = loadShape("Red.obj");
+  textura = loadImage("Red.jpg");
+  liderBird.setTexture(textura);
+  
   //CORBA
   // Crear múltiples corbes
   p1 = new PVector[]{new PVector(100, 800, 100), new PVector(200, 100, 200), new PVector(400, 300, 593), new PVector(600, 100, 170)};
@@ -81,13 +90,13 @@ void draw() {
   box(20);
   popMatrix();
 
-  // Dibujar el líder sin afectar a los boids
+  // Dibuixar líder
   pushMatrix();
   translate(lider.posicio_particula.x, lider.posicio_particula.y, lider.posicio_particula.z);
-  strokeWeight(3);
-  stroke(0, 0, 255);
-  sphere(25); // radio de la esfera es 25
+  scale (50);
+  shape(liderBird); 
   popMatrix();
+  
 
   /* fill(0, 0, 255);
    ellipse(lider.posicio_particula.x, lider.posicio_particula.y, 50, 50);*/
@@ -119,6 +128,10 @@ void draw() {
     p.pinta_particula();
     //checkCollision(p, lider);
   }
+  
+
+  
+  
 
   //obstacles
   fill(255, 165, 0);//Pintem els obstacles
