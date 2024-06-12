@@ -2,7 +2,6 @@ PVector[] p1, p2, p3, p4; //Les diferents corbes
 int numCubs = 4; // Número 'obstacles
 PVector[] posicions = new PVector[numCubs]; // posició obstacles
 float cubSize = 100; // Mida obstacles
-
 void setup() {
   size(1900, 1000, P3D);
 
@@ -33,41 +32,43 @@ void setup() {
 
   // Inicialitzo les particules
   // Constructor = PVector p, PVector v, float m, float tam, float constant_desti, float constant_lider, color c
-  boid1 = new ArrayList<Particula>();
-  for (int i = 0; i < 20; i++) {
-    boid1.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.01, color(255, 0, 0)));
+  boid1 = new Particula[40];
+  for (int i = 0; i < 40; i++) {
+    //if(!activarFriccio) boid1.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0, color(255, 0, 0)));
+    boid1[i] = (new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.2, 0.3, color(random(0, 255), random(0, 255), random(0, 255))));
   }  //K desti = 0.2, K lider = 0.4, K friccio = 0.02
-  boid2 = new ArrayList<Particula>();
+ /* boid2 = new ArrayList<Particula>();
   for (int i = 0; i < 20; i++) {
-    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.8, 0.01, color(0, 255, 0)));
-  }  //K desti = 0.8, K lider = 0.1, K friccio = 0.02
+    // if(!activarFriccio)  boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.8, 0, color(0, 255, 0)));
+    boid2.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.8, 0.8, 0.2, 0.3, color(0, 255, 0)));
+  }*/  //K desti = 0.8, K lider = 0.1, K friccio = 0.02
+  //if(!activarFriccio) lider = new Particula(true, new PVector(width / 2.0, height - 30),
+  //new PVector(0.03, 0.03), 1.0, 45.0, 0.9, 0, 0, color(0, 0, 255)); //K desti = 0.9, K lider = 0, K friccio = 0*/
   lider = new Particula(true, new PVector(width / 2.0, height - 30),
-    new PVector(0.03, 0.03), 1.0, 45.0, 0.9, 0, 0.6, color(0, 0, 255));  //K desti = 0.9, K lider = 0, K friccio = 0.02*/
+    new PVector(0.03, 0.03), 1.0, 45.0, 0.9, 0, 0.9, 0.7, color(0, 0, 255)); //K desti = 0.9, K lider = 0, K friccio = 0.9*/
   // Ini. voxel
   primer_voxel = new Voxel(new PVector (100, -100), new PVector (width/2, height/2), 100.0, 100.0, color(200));
-  
+
   for (int i = 0; i < numCubs; i++) {
     // Generar posicions aleatories per cada obstacle
     float x = random(cubSize, width - cubSize);
     float y = random(cubSize, height - cubSize);
-    float z = random(-200, 200); 
+    float z = random(-200, 200);
     posicions[i] = new PVector(x, y, z);
-    
-    
   }
 }
 
 void draw() {
   background(0);
   lights();
-  
+
   //Configuració de la càmara
   setupCamera();
-   if (isIsometric) { //Per poder posar la vista isometrica
+  if (isIsometric) { //Per poder posar la vista isometrica
     rotateX(-PI / 6);
     rotateY(PI / 4);
   }
-  
+
   //BOLA
   // Actualiza posició elipse
   corba currentCorba = corbes.get(currentCorbaIndex);
@@ -116,29 +117,24 @@ void draw() {
   for (Particula p : boid1) { //Hem fet un iterador perquè vagi passant per cada particula, és més pràctic
     p.calcula_particula();
     p.pinta_particula();
-   // checkCollision(p, lider);
+    //checkCollision(p, lider);
   }
 
-  for (Particula p : boid2) {
-    p.calcula_particula();
-    p.pinta_particula();
-     //checkCollision(p, lider);
-  }
-  
   //obstacles
   fill(255, 165, 0);//Pintem els obstacles
   stroke(255);
- strokeWeight(5);
+  strokeWeight(5);
   for (int i = 0; i < numCubs; i++) {
     PVector pos = posicions[i];
-    pushMatrix(); 
+    pushMatrix();
     translate(pos.x, pos.y, pos.z); // Moure a la posició del cub
     box(cubSize); // Dibuixar el cub
-    popMatrix(); 
+    popMatrix();
   }
-    // Detectar colisiones con voxel
-  Colisions();
+  // Detectar colisiones con voxel
+  ColisionsObstacles();
   
+  //checkFriccio();
 
   //pinta voxels
   //primer_voxel.pintar_voxel();

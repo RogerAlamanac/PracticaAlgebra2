@@ -1,7 +1,7 @@
 float increment_temps = 0.7;
 PVector desti;
-ArrayList<Particula> boid1;
-ArrayList<Particula> boid2;
+Particula[] boid1;
+//ArrayList<Particula> boid2;
 Particula lider;
 
 class Particula {
@@ -12,10 +12,12 @@ class Particula {
   boolean soc_lider;
   float massa_particula;
   float tamany_particula;
-  float constant_desti, constant_lider, constant_friccio;
+  float constant_desti, constant_lider, constant_friccio, constant_vent;
   color color_particula;
+  boolean activarFriccio = true;
+  boolean activarVent = true;
   // Constructor
-  Particula(boolean l, PVector p, PVector v, float m, float tam, float const_d, float const_l, float const_f, color c) {
+  Particula(boolean l, PVector p, PVector v, float m, float tam, float const_d, float const_l, float const_f, float const_v, color c) {
     posicio_particula = new PVector(0.0, 0.0);
     velocitat_particula = new PVector(0.0, 0.0);
     acceleracio_particula = new PVector(0.0, 0.0);
@@ -29,8 +31,10 @@ class Particula {
 
     constant_lider = const_l;
     constant_desti = const_d;
-    constant_friccio = const_f;
     soc_lider = l;
+    constant_friccio = const_f;
+    constant_vent = const_v;
+    
   }
   // Metodes
   void calcula_particula() {
@@ -44,7 +48,7 @@ class Particula {
     vector_per_usar.x = lider.posicio_particula.x - posicio_particula.x;
     vector_per_usar.y = lider.posicio_particula.y - posicio_particula.y;
     // Calcular modul
-    float modul = sqrt(vector_per_usar.x * vector_per_usar.x + vector_per_usar.y * vector_per_usar.y);
+    float modul = sqrt(vector_per_usar.x * vector_per_usar.x + vector_per_usar.y * vector_per_usar.y); //distancialider
     if (modul != 0) {
       // Fer el vector unitari (Vector / modul)
       vector_per_usar.x /= modul;
@@ -62,7 +66,7 @@ class Particula {
       // Calculo el vector del boid al lider
       vector_per_usar.x = lider.posicio_particula.x - posicio_particula.x;
       vector_per_usar.y = lider.posicio_particula.y - posicio_particula.y;
-      // Calculo el modul del vector
+      // Calculo el modul del vector //Component x del vector de la distancia
       modul = sqrt(vector_per_usar.x * vector_per_usar.x + vector_per_usar.y * vector_per_usar.y);
       // Faig unitari el vector(Vector / modul)
       vector_per_usar.x /= modul;
@@ -94,9 +98,16 @@ class Particula {
      acumulador_forsa.y += primer_voxel.forsa_dins_voxel.y;
      }
      // Força de friccio
-     acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
-     acumulador_forsa.y += -1.0 * constant_friccio * velocitat_particula.y;
+     if (activarFriccio) {
+      acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
+      acumulador_forsa.y += -1.0 * constant_friccio * velocitat_particula.y;
+    }
      
+     // Força del vent
+     if(activarVent){
+      acumulador_forsa.x += -1.0 * constant_vent * velocitat_particula.x;
+      acumulador_forsa.y += -1.0 * constant_vent * velocitat_particula.y;
+     }
      
      // 1) Acceleracio
      acceleracio_particula.x = acumulador_forsa.x / massa_particula;
@@ -112,12 +123,54 @@ class Particula {
      posicio_particula.y = posicio_particula.y
      + velocitat_particula.y * increment_temps;
      
+      // Col·lisions amb altres partícules
+      for (int i = 0; i < boid1.length; i++) {
+      Particula other = boid1[i];
+      if (other != this) { //Si una altre particula no es ella mateixa
+        float dx = posicio_particula.x - other.posicio_particula.x; //Component x del vector de la distancia
+        float dy = posicio_particula.y - other.posicio_particula.y;  //Component y del vector de la distancia
+        float dist = sqrt(dx * dx + dy * dy); // Fem modul per saber la distancia
+        if (dist < tamany_particula + other.tamany_particula) {
+          // NNormalitzem el vector de la colisio
+          float nx = dx / dist; //Component x
+          float ny = dy / dist; //Component y
+
+          // Calculem la velocitat relativa, que es la diferencia de velocitat entre les dues particules
+          float rvx = velocitat_particula.x - other.velocitat_particula.x;
+          float rvy = velocitat_particula.y - other.velocitat_particula.y;
+
+          // Calculem la velocitat al llarg de la normal
+          float vn = rvx * nx + rvy * ny;
+
+          // Si s'esten separant/repelent, que no faci res
+         if (vn < 0) {
+            // Calcula el impuls
+            float j = -vn * 0.05;
+            float ix = j * nx;
+            float iy = j * ny;
+
+            // Aplica el impuls
+            velocitat_particula.x -= ix;
+            velocitat_particula.y -= iy;
+            other.velocitat_particula.x += ix;
+            other.velocitat_particula.y += iy;
+          }
+        }
+      }
+    }
+
   }
+ 
+  
   void pinta_particula() {
     pushMatrix();
-    stroke(0, 255, 0);
+    //stroke(0, 255, 0);
     translate(posicio_particula.x, posicio_particula.y, posicio_particula.z);
     sphere(tamany_particula);
     popMatrix();
   }
+  void checkFriccio(){
+ if(activarFriccio) println("Friccio activada");
+ else println("Friccio desactivada");
+}
 }

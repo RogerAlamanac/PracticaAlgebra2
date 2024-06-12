@@ -1,7 +1,8 @@
+
 float distanciaColisioBoid1;
 float distanciaColisioBoid2;
 
-void Colisions() {
+void ColisionsObstacles() {
   for (int i = 0; i<numCubs; i++) {// voxel v : primer_voxel){
     PVector pos = posicions[i];
     for (Particula p : boid1) {
@@ -17,7 +18,7 @@ void Colisions() {
       }
     }
   }
-   for (int i = 0; i<numCubs; i++) {// voxel v : primer_voxel){
+/*   for (int i = 0; i<numCubs; i++) {// voxel v : primer_voxel){
     PVector pos = posicions[i];
     for (Particula p : boid2) {
       distanciaColisioBoid2 = sqrt((p.posicio_particula.x - pos.x)*(p.posicio_particula.x - pos.x) +
@@ -30,5 +31,5 @@ void Colisions() {
         println("Colisio amb boid2");
       }
     }
-  }
+  }*/
 }

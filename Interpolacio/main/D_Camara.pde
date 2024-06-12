@@ -38,6 +38,18 @@ void keyPressed(){
   } else if (keyCode == RIGHT) { //Al premer la tecla de RIGHT, la camara es mou cap a la dreta
     camX += 10;
   }
+  
+  if(key == 'a' || key == 'A'){
+    for(Particula p : boid1){
+       p.activarFriccio = !p.activarFriccio;
+    }
+    
+   /* for(Particula p1 : boid2){
+      p1.activarFriccio = !p1.activarFriccio;
+    }*/
+   
+    lider.activarFriccio = !lider.activarFriccio;
+  }
 }
 
   
