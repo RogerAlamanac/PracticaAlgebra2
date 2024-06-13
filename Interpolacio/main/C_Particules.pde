@@ -181,9 +181,7 @@ class Particula {
     //stroke(random(0,255), random(0,255), random(0,255));
     //noStroke();
     translate(posicio_particula.x, posicio_particula.y, posicio_particula.z);
-    //sphere(tamany_particula);
-    scale (20);
-    shape(Fish);
+    sphere(tamany_particula);
     popMatrix();
   }
 

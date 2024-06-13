@@ -3,16 +3,7 @@ int numCubs = 4; // Número 'obstacles
 PVector[] posicions = new PVector[numCubs]; // posició obstacles
 float cubSize = 100; // Mida obstacles
 
-PShape liderFish;
-PImage texturaLider;
-
-PShape destiFish;
-PImage texturaDesti;
-
-PShape Fish;
-PImage textura;
-
-PImage ocean;
+PImage space;
 
 void setup() {
   size(1900, 1000, P3D);
@@ -21,23 +12,8 @@ void setup() {
   //Inicialitzo el desti
   desti = new PVector(mouseX, mouseY);
 
-//lider
-  liderFish = loadShape("boid.obj");
-  textura = loadImage("boid.jpg");
-  liderFish.setTexture(textura);
-
-//desti
-  destiFish = loadShape("13009_Coral_Beauty_Angelfish_v1_l3.obj");
-  texturaDesti = loadImage("13009_Coral_Beauty_Angelfish_v1_diff.jpg");
-  destiFish.setTexture(texturaDesti);
-
-//particules
-  Fish = loadShape("blueFish.obj");
-  textura = loadImage("13004_Bicolor_Blenny_v1_diff.jpg");
-  Fish.setTexture(textura);
-
-//Background
-  ocean = loadImage("ocean.jpg");
+  //Background
+  space = loadImage("space.jpg");
 
   //CORBA
   // Crear múltiples corbes
@@ -66,7 +42,7 @@ void setup() {
   boid1 = new Particula[40];
   for (int i = 0; i < 40; i++) {
     //if(!activarFriccio) boid1.add(new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0, color(255, 0, 0)));
-    boid1[i] = (new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.2, 0.3, color(random(0, 255), random(0, 255), random(0, 255))));
+    boid1[i] = (new Particula(false, new PVector(random(width), random(height)), new PVector(random(-1, 1), random(-1, 1)), 5, 10, 0.2, 0.8, 0.2, 0.3, color(255)));
   }  //K desti = 0.2, K lider = 0.4, K friccio = 0.02
   /* boid2 = new ArrayList<Particula>();
    for (int i = 0; i < 20; i++) {
@@ -80,7 +56,7 @@ void setup() {
   // Ini. voxel
   voxel = new Voxel[numCubs];
   for (int i = 0; i<numCubs; ++i)
-    voxel[i] = (new Voxel(new PVector (100, -100), new PVector (random(cubSize, width - cubSize), random(cubSize, height - cubSize), random(-200, 200)), 100.0, 100.0, color(200)));
+    voxel[i] = (new Voxel(new PVector (100, -100), new PVector (random(cubSize, width - cubSize), random(cubSize, height - cubSize), random(-200, 200)), 100.0, 100.0, color(0,200,0)));
 
   for (int i = 0; i < numCubs; i++) {
     // Generar posicions aleatories per cada obstacle
@@ -92,7 +68,7 @@ void setup() {
 }
 
 void draw() {
-  background(ocean);
+  background(space);
   lights();
 
   //Configuració de la càmara
@@ -110,18 +86,16 @@ void draw() {
   // Destí
   pushMatrix();
   translate(desti.x, desti.y, 0);
-  scale (250);
-  shape(destiFish);
-  //box(20);
+  stroke(255);
+  fill (0,255,0);
+  box(40);
   popMatrix();
 
   // Dibuixar líder
   pushMatrix();
   translate(lider.posicio_particula.x, lider.posicio_particula.y, lider.posicio_particula.z);
-  scale (10);
-  shape(liderFish);
-  //stroke(0,0,255);
-  //sphere(lider.tamany_particula);
+  stroke(0, 0, 255);
+  sphere(lider.tamany_particula);
   popMatrix();
 
 
@@ -161,7 +135,7 @@ void draw() {
 
 
   //obstacles
-  fill(255, 165, 0);//Pintem els obstacles
+  fill(165, 0, 165);//Pintem els obstacles
   stroke(255);
   strokeWeight(5);
   for (int i = 0; i < numCubs; i++) {
