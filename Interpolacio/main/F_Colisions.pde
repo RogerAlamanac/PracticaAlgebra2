@@ -4,32 +4,17 @@ float distanciaColisioBoid2;
 
 void ColisionsObstacles() {
   for (int i = 0; i<numCubs; i++) {// voxel v : primer_voxel){
-    PVector pos = posicions[i];
-    for (Particula p : boid1) {
-      distanciaColisioBoid1 = sqrt((p.posicio_particula.x - pos.x)*(p.posicio_particula.x - pos.x) +
-        (p.posicio_particula.y - pos.y)*(p.posicio_particula.y - pos.y) + (p.posicio_particula.z - pos.z)*(p.posicio_particula.z - pos.z)); //Formmula de la distancia
+    for (Particula p : boid1) { //Iterador que pasa per totes les partícules del array
+      distanciaColisioBoid1 = sqrt((p.posicio_particula.x - voxel[i].posicio_voxel.x)*(p.posicio_particula.x - voxel[i].posicio_voxel.x) +
+        (p.posicio_particula.y - voxel[i].posicio_voxel.y)*(p.posicio_particula.y - voxel[i].posicio_voxel.y) + (p.posicio_particula.z - 
+        voxel[i].posicio_voxel.z)*(p.posicio_particula.z - voxel[i].posicio_voxel.z)); //Formmula de la distancia
 
-      if (distanciaColisioBoid1 < 50) {
-        
-        p.posicio_particula.x = 100000;
-        p.posicio_particula.y = 100000;
-        p.posicio_particula.z = 100000;
-        println("Colisio amb boid1");
+      if (distanciaColisioBoid1 < 100) { //Si la distància es més petita que el "radi" del voxel, que s'impulsi la particula cap enrere 
+        p.velocitat_particula.x = -p.velocitat_particula.x*1.5;
+        p.velocitat_particula.y = -p.velocitat_particula.y*1.5;
+        p.velocitat_particula.z = -p.velocitat_particula.z*1.5;
+        println("Colisio amb ", voxel[i]);
       }
     }
   }
-/*   for (int i = 0; i<numCubs; i++) {// voxel v : primer_voxel){
-    PVector pos = posicions[i];
-    for (Particula p : boid2) {
-      distanciaColisioBoid2 = sqrt((p.posicio_particula.x - pos.x)*(p.posicio_particula.x - pos.x) +
-        (p.posicio_particula.y - pos.y)*(p.posicio_particula.y - pos.y) + (p.posicio_particula.z - pos.z)*(p.posicio_particula.z - pos.z)); //Formmula de la distancia
-
-      if (distanciaColisioBoid2 < 50) {
-        p.posicio_particula.x = 100000;
-        p.posicio_particula.y = 100000;
-        p.posicio_particula.z = 100000;
-        println("Colisio amb boid2");
-      }
-    }
-  }*/
 }

@@ -1,4 +1,4 @@
-Voxel primer_voxel;
+Voxel[] voxel;
 
 class Voxel {
   //Atributs

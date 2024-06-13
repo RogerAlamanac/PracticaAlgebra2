@@ -85,27 +85,43 @@ class Particula {
     PVector xymax_voxel = new PVector(0, 0);
     PVector xymin_voxel = new PVector(0, 0);
 
-
-    xymin_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
-    xymin_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
-    xymax_voxel.x = primer_voxel.posicio_voxel.x-0.7*primer_voxel.ample_voxel;
-    xymax_voxel.y = primer_voxel.posicio_voxel.y-0.7*primer_voxel.alt_voxel;
+  for(int i = 0; i<numCubs;i++){
+    xymin_voxel.x = voxel[i].posicio_voxel.x-0.7*voxel[i].ample_voxel;
+    xymin_voxel.y = voxel[i].posicio_voxel.y-0.7*voxel[i].alt_voxel;
+    xymax_voxel.x = voxel[i].posicio_voxel.x-0.7*voxel[i].ample_voxel;
+    xymax_voxel.y = voxel[i].posicio_voxel.y-0.7*voxel[i].alt_voxel;
 
     if ((posicio_particula.x>xymin_voxel.x) && (posicio_particula.x<xymax_voxel.x) && (posicio_particula.y>xymin_voxel.y) && (posicio_particula.y<xymax_voxel.y)) {
       // Som dins del voxel
-      acumulador_forsa.x += primer_voxel.forsa_dins_voxel.x;
-      acumulador_forsa.y += primer_voxel.forsa_dins_voxel.y;
+      acumulador_forsa.x += voxel[i].forsa_dins_voxel.x;
+      acumulador_forsa.y += voxel[i].forsa_dins_voxel.y;
     }
+  }
+    
     // Força de friccio
     if (activarFriccio) {
       acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
       acumulador_forsa.y += -1.0 * constant_friccio * velocitat_particula.y;
+      textSize(100);
+      text("Fricció: Activada", 1000, 800);
+      fill(255);
+    } else {
+      textSize(100);
+      text("Fricció: Desactivada", 1000, 800);
+      fill(255);
     }
 
     // Força del vent
     if (activarVent) {
       acumulador_forsa.x += -1.0 * constant_vent * velocitat_particula.x;
       acumulador_forsa.y += -1.0 * constant_vent * velocitat_particula.y;
+      textSize(100);
+      text("Vent: Activat", 1000, 900);
+      fill(255);
+    } else {
+      textSize(100);
+      text("Vent: Desactivat", 1000, 900);
+      fill(255);
     }
 
     // 1) Acceleracio
@@ -131,22 +147,22 @@ class Particula {
         float dist = sqrt(dx * dx + dy * dy); // Fem modul per saber la distancia
         if (dist < tamany_particula + other.tamany_particula) {
           // NNormalitzem el vector de la colisio
-          float nx = dx / dist; //Component x
-          float ny = dy / dist; //Component y
+          float normalX = dx / dist; //Component x
+          float normalY = dy / dist; //Component y
 
-          // Calculem la velocitat relativa, que es la diferencia de velocitat entre les dues particules
-          float rvx = velocitat_particula.x - other.velocitat_particula.x;
-          float rvy = velocitat_particula.y - other.velocitat_particula.y;
+          // Calculem la velocitat relativa, que es la diferencia de velocitat entre les dues particules, per poder fer el impuls/repulsió
+          float relativaX = velocitat_particula.x - other.velocitat_particula.x;
+          float relativaY = velocitat_particula.y - other.velocitat_particula.y;
 
-          // Calculem la velocitat al llarg de la normal
-          float vn = rvx * nx + rvy * ny;
+          // Calculem la velocitat del vector normal
+          float vn = relativaX * normalX + relativaY * normalY;
 
           // Si s'esten separant/repelent, que no faci res
           if (vn < 0) {
             // Calcula el impuls
             float j = -vn * 0.05;
-            float ix = j * nx;
-            float iy = j * ny;
+            float ix = j * normalX; //Coordenada X de la força del impu
+            float iy = j * normalY;
 
             // Aplica el impuls
             velocitat_particula.x -= ix;
@@ -162,7 +178,8 @@ class Particula {
 
   void pinta_particula() {
     pushMatrix();
-    //stroke(0, 255, 0);
+    //stroke(random(0,255), random(0,255), random(0,255));
+    noStroke();
     translate(posicio_particula.x, posicio_particula.y, posicio_particula.z);
     sphere(tamany_particula);
     popMatrix();

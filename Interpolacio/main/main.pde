@@ -63,7 +63,9 @@ void setup() {
   lider = new Particula(true, new PVector(width / 2.0, height - 30),
     new PVector(0.03, 0.03), 1.0, 45.0, 0.9, 0, 0.9, 0.7, color(0, 0, 255)); //K desti = 0.9, K lider = 0, K friccio = 0.9*/
   // Ini. voxel
-  primer_voxel = new Voxel(new PVector (100, -100), new PVector (width/2, height/2), 100.0, 100.0, color(200));
+  voxel = new Voxel[numCubs];
+  for(int i = 0;i<numCubs;++i)
+  voxel[i] = (new Voxel(new PVector (100, -100), new PVector (random(cubSize, width - cubSize), random(cubSize, height - cubSize), random(-200, 200)), 100.0, 100.0, color(200)));
 
   for (int i = 0; i < numCubs; i++) {
     // Generar posicions aleatories per cada obstacle
@@ -93,15 +95,18 @@ void draw() {
   // Destí
   pushMatrix();
   translate(desti.x, desti.y, 0);
-  scale (20);
-  shape(destiBird); 
+  /*scale (10);
+  shape(destiBird);*/
+  box(20);
   popMatrix();
 
   // Dibuixar líder
   pushMatrix();
   translate(lider.posicio_particula.x, lider.posicio_particula.y, lider.posicio_particula.z);
-  scale (50);
-  shape(liderBird); 
+  /*scale (10);
+  shape(liderBird);*/ 
+  stroke(0,0,255);
+  sphere(lider.tamany_particula);
   popMatrix();
   
 
@@ -145,9 +150,9 @@ void draw() {
   stroke(255);
   strokeWeight(5);
   for (int i = 0; i < numCubs; i++) {
-    PVector pos = posicions[i];
+   // PVector pos = posicions[i];
     pushMatrix();
-    translate(pos.x, pos.y, pos.z); // Moure a la posició del cub
+    translate(voxel[i].posicio_voxel.x, voxel[i].posicio_voxel.y, voxel[i].posicio_voxel.z); // Moure a la posició del cub
     box(cubSize); // Dibuixar el cub
     popMatrix();
   }
