@@ -38,7 +38,7 @@ void keyPressed() {
     camX += 10;
   }
 
-  if (key == 'f' || key == 'F') {
+  if (key == 'f' || key == 'F') { //Al activar la tecla F la friccio canvia d'estat (activat/desactivat)
     for (Particula p : boid1) {
       p.activarFriccio = !p.activarFriccio;
     }
@@ -46,7 +46,7 @@ void keyPressed() {
   }
 
 
-  if (key == 'v' || key == 'V') {
+  if (key == 'v' || key == 'V') { //Al activar la tecla V el vent canvia d'estat (activat/desactivat)
     for (Particula p : boid1) {
       p.activarVent = !p.activarVent;
     }

@@ -8,7 +8,7 @@ class Voxel {
   color color_voxel;
 
   //Constructor
-  Voxel(PVector f, PVector p, float amp, float alt, color c) {
+  Voxel(PVector f, PVector p, float amp, float alt, color c) { //Totes les característiques i atributs del voxel
     forsa_dins_voxel = new PVector (0.0, 0.0);
     posicio_voxel = new PVector (0.0, 0.0, 0.0);
     forsa_dins_voxel = f;

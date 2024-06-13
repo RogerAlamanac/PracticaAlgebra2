@@ -1,7 +1,6 @@
 float increment_temps = 0.7;
 PVector desti;
 Particula[] boid1;
-//ArrayList<Particula> boid2;
 Particula lider;
 
 class Particula {
@@ -142,6 +141,7 @@ class Particula {
     for (int i = 0; i < boid1.length; i++) {
       Particula other = boid1[i];
       if (other != this) { //Si una altre particula no es ella mateixa
+      //Necessitem saber la distancia entre particules, per això creem un vector i calculem el modul
         float dx = posicio_particula.x - other.posicio_particula.x; //Component x del vector de la distancia
         float dy = posicio_particula.y - other.posicio_particula.y;  //Component y del vector de la distancia
         float dist = sqrt(dx * dx + dy * dy); // Fem modul per saber la distancia
@@ -160,17 +160,31 @@ class Particula {
           // Si s'esten separant/repelent, que no faci res
           if (vn < 0) {
             // Calcula el impuls
-            float j = -vn * 0.05;
-            float ix = j * normalX; //Coordenada X de la força del impu
-            float iy = j * normalY;
+            float j = -vn * 0.05; //Multipliquem per 0.05 perquè l'impuls no sigui massa fort
+            float ix = j * normalX; //Coordenada X de la força del impuls
+            float iy = j * normalY; //Coordenada Y de la força del impuls
 
             // Aplica el impuls
-            velocitat_particula.x -= ix;
+            velocitat_particula.x -= ix; //Es canvia de sentit la velocitat epr fer l'impuls
             velocitat_particula.y -= iy;
-            other.velocitat_particula.x += ix;
+            other.velocitat_particula.x += ix; //S'impulsa també l'altre particula
             other.velocitat_particula.y += iy;
           }
         }
+      }
+    }
+    
+    //Collisio amb lider
+    for (Particula p : boid1) { //Iterador que pasa per totes les partícules del array
+    float distanciaColisioLider = sqrt((p.posicio_particula.x - lider.posicio_particula.x)*(p.posicio_particula.x - lider.posicio_particula.x) +
+        (p.posicio_particula.y - lider.posicio_particula.y)*(p.posicio_particula.y - lider.posicio_particula.y) + (p.posicio_particula.z - 
+        lider.posicio_particula.z)*(p.posicio_particula.z - lider.posicio_particula.z)); //Formmula de la distancia
+
+      if (distanciaColisioLider < 45) { //Si la distància es més petita que el "radi" del lider, que s'impulsi la particula cap enrere 
+        p.velocitat_particula.x = -p.velocitat_particula.x*0.5; //Perque no avanci quan colisiona, canviem velocitat de negativa
+        p.velocitat_particula.y = -p.velocitat_particula.y*0.5;
+        p.velocitat_particula.z = -p.velocitat_particula.z*0.5;
+        println("Colisio amb lider");
       }
     }
   }
@@ -178,8 +192,8 @@ class Particula {
 
   void pinta_particula() {
     pushMatrix();
-    //stroke(random(0,255), random(0,255), random(0,255));
-    //noStroke();
+    fill(255);
+    noStroke();
     translate(posicio_particula.x, posicio_particula.y, posicio_particula.z);
     sphere(tamany_particula);
     popMatrix();

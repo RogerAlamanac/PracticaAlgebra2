@@ -2,7 +2,6 @@ PVector[] p1, p2, p3, p4; //Les diferents corbes
 int numCubs = 4; // Número 'obstacles
 PVector[] posicions = new PVector[numCubs]; // posició obstacles
 float cubSize = 100; // Mida obstacles
-
 PImage space;
 
 void setup() {
@@ -94,7 +93,8 @@ void draw() {
   // Dibuixar líder
   pushMatrix();
   translate(lider.posicio_particula.x, lider.posicio_particula.y, lider.posicio_particula.z);
-  stroke(0, 0, 255);
+  fill(0,0,255);
+  noStroke();
   sphere(lider.tamany_particula);
   popMatrix();
 
@@ -130,13 +130,9 @@ void draw() {
     //checkCollision(p, lider);
   }
 
-
-
-
-
   //obstacles
   fill(165, 0, 165);//Pintem els obstacles
-  stroke(255);
+  noStroke();
   strokeWeight(5);
   for (int i = 0; i < numCubs; i++) {
     // PVector pos = posicions[i];
@@ -147,11 +143,8 @@ void draw() {
   }
   // Detectar colisiones con voxel
   ColisionsObstacles();
-
-  //checkFriccio();
-
-  //pinta voxels
-  //primer_voxel.pintar_voxel();
+  
+ 
 }
 
 
