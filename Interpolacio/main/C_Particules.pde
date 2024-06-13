@@ -85,19 +85,19 @@ class Particula {
     PVector xymax_voxel = new PVector(0, 0);
     PVector xymin_voxel = new PVector(0, 0);
 
-  for(int i = 0; i<numCubs;i++){
-    xymin_voxel.x = voxel[i].posicio_voxel.x-0.7*voxel[i].ample_voxel;
-    xymin_voxel.y = voxel[i].posicio_voxel.y-0.7*voxel[i].alt_voxel;
-    xymax_voxel.x = voxel[i].posicio_voxel.x-0.7*voxel[i].ample_voxel;
-    xymax_voxel.y = voxel[i].posicio_voxel.y-0.7*voxel[i].alt_voxel;
+    for (int i = 0; i<numCubs; i++) {
+      xymin_voxel.x = voxel[i].posicio_voxel.x-0.7*voxel[i].ample_voxel;
+      xymin_voxel.y = voxel[i].posicio_voxel.y-0.7*voxel[i].alt_voxel;
+      xymax_voxel.x = voxel[i].posicio_voxel.x-0.7*voxel[i].ample_voxel;
+      xymax_voxel.y = voxel[i].posicio_voxel.y-0.7*voxel[i].alt_voxel;
 
-    if ((posicio_particula.x>xymin_voxel.x) && (posicio_particula.x<xymax_voxel.x) && (posicio_particula.y>xymin_voxel.y) && (posicio_particula.y<xymax_voxel.y)) {
-      // Som dins del voxel
-      acumulador_forsa.x += voxel[i].forsa_dins_voxel.x;
-      acumulador_forsa.y += voxel[i].forsa_dins_voxel.y;
+      if ((posicio_particula.x>xymin_voxel.x) && (posicio_particula.x<xymax_voxel.x) && (posicio_particula.y>xymin_voxel.y) && (posicio_particula.y<xymax_voxel.y)) {
+        // Som dins del voxel
+        acumulador_forsa.x += voxel[i].forsa_dins_voxel.x;
+        acumulador_forsa.y += voxel[i].forsa_dins_voxel.y;
+      }
     }
-  }
-    
+
     // Força de friccio
     if (activarFriccio) {
       acumulador_forsa.x += -1.0 * constant_friccio * velocitat_particula.x;
@@ -179,12 +179,14 @@ class Particula {
   void pinta_particula() {
     pushMatrix();
     //stroke(random(0,255), random(0,255), random(0,255));
-    noStroke();
+    //noStroke();
     translate(posicio_particula.x, posicio_particula.y, posicio_particula.z);
-    sphere(tamany_particula);
+    //sphere(tamany_particula);
+    scale (20);
+    shape(Fish);
     popMatrix();
   }
-  
+
   void checkFriccio() {
     if (activarFriccio) println("Friccio activada");
     else println("Friccio desactivada");
